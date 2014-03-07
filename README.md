@@ -1,3 +1,5 @@
+*This is modified version of https://github.com/CHH/heroku-buildpack-php. I've changed logging from [named pipes](http://en.wikipedia.org/wiki/Named_pipe) to ordinary files since named pipes didn't work for me (Dokku with conatiner based on ubuntu 12.10).*
+
 # Advanced PHP Heroku Build Pack
 
 ## What makes it unique?
