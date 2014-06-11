@@ -15,6 +15,8 @@ http {
 
     keepalive_timeout  65;
 
+    port_in_redirect off;
+
     error_log logs/error.log notice;
     access_log logs/access.log;
 
@@ -64,7 +66,6 @@ http {
     server {
         server_name localhost;
         listen <%= ENV['PORT'] %>;
-        port_in_redirect off;
 
         #Specify a charset
         charset utf-8;
