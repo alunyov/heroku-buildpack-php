@@ -344,10 +344,14 @@ if [ -n "$BUILDPACK_DEBUG" ]; then
     ls -R /app/vendor/php
 fi
 
+status "Moving configs"
+
 mkdir -p "conf"
 cp "$basedir/../conf/nginx/base.conf.erb" "conf/nginx.conf.erb"
 cp "$basedir/../conf/php/php-fpm.conf" "/app/vendor/php/etc/php-fpm.conf"
 cp "$basedir/../conf/php/php.ini" "/app/vendor/php/etc/php.ini"
+
+status "pear config-set"
 
 pear config-set php_ini /app/vendor/php/etc/php.ini &> /dev/null
 
@@ -358,6 +362,8 @@ done
 for include in $PHP_INCLUDES; do
     cp "$BUILD_DIR/$include" "/app/vendor/php/etc/conf.d/"
 done
+
+status "Detecting PHP framework"
 
 # Detect PHP framework
 for f in "$basedir/../frameworks/"*; do
@@ -384,7 +390,12 @@ fi
 
 "$FRAMEWORK" compile "$BUILD_DIR" "$CACHE_DIR"
 
+status "Install node deps"
+
 install_node_deps "$BUILD_DIR"
+
+status "Install composer deps"
+
 install_composer_deps "$BUILD_DIR"
 
 LOG_FILES=$(unique_array ${LOG_FILES[@]} ${USER_LOG_FILES[@]})
