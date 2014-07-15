@@ -353,7 +353,7 @@ cp "$basedir/../conf/php/php.ini" "/app/vendor/php/etc/php.ini"
 
 status "pear config-set"
 
-pear config-set php_ini /app/vendor/php/etc/php.ini &> /dev/null
+pear config-set php_ini /app/vendor/php/etc/php.ini
 
 for conf in $PHP_EXTRA_CONFIG; do
     echo "$conf" >> "/app/vendor/php/etc/php.ini"
